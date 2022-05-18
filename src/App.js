@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import {INCREMENT, DECREMENT, MULTIPLY, DIVIDE} from './store'
+import Button from './components/Button';
+import Calculadora from './components/Calculadora';
+import { connect } from 'react-redux';
 
-function App() {
+
+function App({increment, decrement, multiply, divide}) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Calculadora/>
+      <Button handleClick={increment}>Sumar</Button>
+      <Button handleClick={decrement}>Restar</Button>
+      <Button handleClick={multiply}>Multiplicar</Button>
+      <Button handleClick={divide}>Divide</Button>
     </div>
   );
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {
+    increment: () => dispatch({ type: INCREMENT }),
+    decrement: () => dispatch({ type: DECREMENT }),
+    multiply: () => dispatch({type: MULTIPLY}),
+    divide: () => dispatch({type: DIVIDE}),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(App);
